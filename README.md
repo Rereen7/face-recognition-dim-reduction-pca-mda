@@ -1,6 +1,6 @@
-# face-recognition-dim-reduction-pca-mda
-Face classification in MATLAB using PCA/MDA for dimensionality reduction and classical classifiers including SVM, k-NN, and Bayes.
 # Face Classification with PCA and MDA (MATLAB)
+Face classification in MATLAB using PCA/MDA for dimensionality reduction and classical classifiers including SVM, k-NN, and Bayes.
+
 
 This repository implements face image classification using classical machine learning
 methods combined with dimensionality reduction. The project is written entirely in
@@ -42,3 +42,43 @@ The following datasets are supported (provided as `.mat` files):
 5. Run:
    ```matlab
    main
+
+   
+## Configuration
+
+All experiments are configured in **Step 0** of `main.m`.  
+Copy and modify the parameters below to reproduce or customize experiments.
+
+```matlab
+%% Dataset and Task
+dataset_name = 'data';    % Options: 'data', 'pose', 'illumination'
+task = 1;                 % 1 = subject classification
+                           % 2 = expression classification (data.mat only)
+
+%% Classifier Selection
+classifier = 'svm';       % Options:
+                           % 'bayes'        - Gaussian Bayes
+                           % 'knn'          - k-Nearest Neighbors
+                           % 'svm'          - Kernel SVM
+                           % 'boosted_svm'  - AdaBoosted linear SVM
+
+%% Dimensionality Reduction
+proj_mode = 'pca';        % Options: 'pca' or 'mda'
+
+% Projection dimensions for each dataset:
+% [data, pose, illumination]
+m_pca_vals = [20, 10, 20];
+m_mda_vals = [1, 10, 20];
+
+%% k-NN Parameters
+k = 1;                    % Number of nearest neighbors
+
+%% SVM Parameters
+kernel_type = 'rbf';      % Options: 'rbf' or 'poly'
+
+%% Boosted SVM Parameters
+T = 10;                   % Number of AdaBoost rounds
+
+%% Train/Test Split
+train_ratio_task_1 = 0.80;   % Subject classification
+train_ratio_task_2 = 0.70;   % Expression classification
